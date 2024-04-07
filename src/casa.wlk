@@ -1,10 +1,12 @@
 object casaDePepeYJulian {
 
-	var viveres = 50
-	var montoReparacion = 0
-        var cuenta = cuentaCorriente
+	var property viveres = 50
+	var property montoReparacion = 0
+        var property cuenta = cuentaCorriente
         var estrategiaAhorro = minimoIndispensable
-
+    method montoReparacion() {
+    	return montoReparacion
+    }
 	method viveresSuficientes() {
 		return viveres > 40
 	}
@@ -19,7 +21,7 @@ object casaDePepeYJulian {
 	}
 
 	method estaEnOrden() {
-		return self.viveresSuficientes() && self.necesitaReparacion()
+		return self.viveresSuficientes() && not self.necesitaReparacion()
 	}
         method montoReparacion(_montoReparacion) {
                 montoReparacion = _montoReparacion 
@@ -42,7 +44,7 @@ object casaDePepeYJulian {
  }
 
 object cuentaCorriente {
-var saldo = 0
+var property saldo = 0
       method saldo() {
       return saldo 
       }
@@ -72,9 +74,9 @@ var costoOperacion = 0
 }
 
 object cuentaCombinada {
-var saldo = 0 
-var cuentaPrimaria = cuentaCorriente
-var cuentaSecundaria = cuentaGastos 
+var property saldo = 0 
+var property cuentaPrimaria = cuentaCorriente
+var property cuentaSecundaria = cuentaGastos 
       method cuentaPrimaria(_cuentaPrimaria) {
       cuentaPrimaria = _cuentaPrimaria
       }
@@ -92,6 +94,11 @@ var cuentaSecundaria = cuentaGastos
       method depositar(sumaADepositar) {
         cuentaPrimaria.depositar(sumaADepositar)
       }
+      
+      method saldo() {
+       return cuentaPrimaria.saldo() + cuentaSecundaria.saldo() 
+      }
+      
 
 }
 
@@ -123,14 +130,12 @@ var casa = casaDePepeYJulian
      method generarGastos() {
          if (casa.estaEnOrden()) {
             casa.viveres(100) 
-            casa.costoReparacion(100 * calidad)
+            casa.montoReparacion(100 * calidad)
          }
          else casa.viveres(casa.viveres() + 40)
-            casa.costoReparacion(40 * calidad)
+            casa.montoReparacion(40 * calidad)
       }
 }
-  
-
 
 
 
