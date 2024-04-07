@@ -1,0 +1,20 @@
+test "Si se extraen 200 pesos (salen de la cuenta corriente, ya que a la primaria no le alcanza, dejándola en 300 pesos" {
+	cuentaCombinada.cuentaPrimaria(cuentaGastos)
+	cuentaCombinada.cuentaPrimaria().costoOperacion(50)
+	cuentaCombinada.cuentaSecundaria(cuentaCorriente)
+	cuentaCombinada.cuentaSecundaria().saldo(500)
+	cuentaCombinada.depositar(100)
+	cuentaCombinada.extraer(200)
+	assert.equals(300, cuentaCombinada.cuentaSecundaria().saldo())
+}
+
+test "Verificar que el saldo de la cuenta con gastos queda en 50 pesos, 
+la cuenta corriente con 300 pesos y la combindada con 350 pesos." {
+	cuentaCombinada.cuentaPrimaria(cuentaGastos)
+	cuentaCombinada.cuentaPrimaria().costoOperacion(50)
+	cuentaCombinada.cuentaSecundaria(cuentaCorriente)
+	cuentaCombinada.cuentaSecundaria().saldo(500)
+	cuentaCombinada.depositar(100)
+	cuentaCombinada.extraer(200)
+	assert.equals(350,cuentaCombinada.saldo())
+}
