@@ -23,6 +23,7 @@ object casaDePepeYJulian {
 	}
         method montoReparacion(_montoReparacion) {
                 montoReparacion = _montoReparacion 
+        }        
         method cuentaAElegir(_cuenta) {
                  cuenta = _cuenta
         }
@@ -33,8 +34,7 @@ object casaDePepeYJulian {
                 estrategiaAhorro = _estrategiaAhorro 
         }
         method mantenimiento() {
-          generarGastos().estrategiaAhorro
-  
+          estrategiaAhorro.generarGastos()
        }
        method viveres() {
          return viveres
@@ -54,17 +54,14 @@ var saldo = 0
       }
 }
 
-object cuentagastos {
+object cuentaGastos {
 var saldo =0
-var costoOperación = 0
-      method saldo() {
-      return saldo
-      }
+var costoOperacion = 0
       method costoOperacion(_costoOperacion) {
       costoOperacion = _costoOperacion 
       }
-      method depositar(SumaADepositar) {
-      saldo = saldo + sumaADepositar - costo Operación
+      method depositar(sumaADepositar) {
+      saldo = saldo + sumaADepositar - costoOperacion
       } 
       method extraer(sumaAExtraer) {
       saldo -= sumaAExtraer
@@ -75,10 +72,10 @@ var costoOperación = 0
 }
 
 object cuentaCombinada {
-var saldo =0 
+var saldo = 0 
 var cuentaPrimaria = cuentaCorriente
 var cuentaSecundaria = cuentaGastos 
-      method cuentaPrimaria(_cuentaPrimaria)
+      method cuentaPrimaria(_cuentaPrimaria) {
       cuentaPrimaria = _cuentaPrimaria
       }
       method cuentaSecundaria(_cuentaSecundaria) {
@@ -86,29 +83,31 @@ var cuentaSecundaria = cuentaGastos
 
       }
       method extraer(sumaAExtraer) {
-         if saldo().cuentaPrimaria >= sumaAextraer {
-            extraer(sumaAExtraer).cuentaPrimaria
+         if (cuentaPrimaria.saldo() >= sumaAExtraer) {
+            cuentaPrimaria.extraer(sumaAExtraer)
          }
-         else extraer(sumaAExtraer).cuentaSecundaria
+         else cuentaSecundaria.extraer(sumaAExtraer)
    
       }
       method depositar(sumaADepositar) {
-        depositar(sumaADepositar).cuentaPrimaria
+        cuentaPrimaria.depositar(sumaADepositar)
       }
 
 }
 
 object minimoIndispensable {
 var casa = casaDePepeYJulian 
-calidad = 0 
-
+var calidad = 0 
+      method casaAMantener(_casa) {
+      	casa = _casa
+      }		
       method calidad(_calidad) {
       calidad = _calidad 
       }
       method generarGastos() {
-        if not viveresSuficientes().casa { 
-          costoReparación(40 - viveres().casa).casa
-          viveres(40).casa
+        if (not casa.viveresSuficientes()) { 
+          casa.costoReparacion(40 - casa.viveres())
+          casa.viveres(40)
 
         }
 
@@ -117,17 +116,20 @@ calidad = 0
 
 object full { 
 var calidad = 5 
+var casa = casaDePepeYJulian
+     method casaAMantener(_casa) {
+      	casa = _casa
+      }	
      method generarGastos() {
-         if estaEnOrden().casa {
-            viveres(100).casa 
-            costoReparacion(100 * calidad).casa
+         if (casa.estaEnOrden()) {
+            casa.viveres(100) 
+            casa.costoReparacion(100 * calidad)
          }
-         else viveres(viveres().casa + 40).casa
-          costoReparación(40 * calidad).casa
+         else casa.viveres(casa.viveres() + 40)
+            casa.costoReparacion(40 * calidad)
       }
 }
-
-      
+  
 
 
 
