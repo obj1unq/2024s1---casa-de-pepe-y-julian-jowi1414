@@ -1,0 +1,33 @@
+import example.*
+
+/*Si la casa tiene 50% de los víveres, necesita 100 pesos para reparaciones, 
+tiene asociada la cuenta corriente con 1000 pesos de saldo y 
+una estrategia de ahorro Full. Al hacer un mantenimiento de la casa: */
+test "Verificar que la casa queda con 90% de víveres" {
+	casaDePepeYJulian.viveres(50)
+	casaDePepeYJulian.montoReparacion(100)
+	casaDePepeYJulian.cuentaAElegir(cuentaCorriente)
+	casaDePepeYJulian.cuenta().saldo(1000)  
+	casaDePepeYJulian.estrategiaAhorro(full)
+	casaDePepeYJulian.mantenimiento()
+	assert.equals(90,casaDePepeYJulian.viveres())
+	
+}
+ test "Verificar que la casa mantiene los 100 pesos para reparaciones" {
+ 	casaDePepeYJulian.viveres(50)
+	casaDePepeYJulian.montoReparacion(100)
+	casaDePepeYJulian.cuentaAElegir(cuentaCorriente)
+	casaDePepeYJulian.cuenta().saldo(1000)  
+	casaDePepeYJulian.estrategiaAhorro(full)
+	casaDePepeYJulian.mantenimiento()
+	assert.equals(100,casaDePepeYJulian.montoReparacion())
+ }
+ test "Verificar que la casa mantiene la cuenta corriente con 800 pesos" {
+ 	casaDePepeYJulian.viveres(50)
+	casaDePepeYJulian.montoReparacion(100)
+	casaDePepeYJulian.cuentaAElegir(cuentaCorriente)
+	casaDePepeYJulian.cuenta().saldo(1000)  
+	casaDePepeYJulian.estrategiaAhorro(full)
+	casaDePepeYJulian.mantenimiento()
+	assert.equals(800, casaDePepeYJulian.cuenta().saldo())
+ }
