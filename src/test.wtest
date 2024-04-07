@@ -1,0 +1,14 @@
+import casa.*
+test "Se rompe algo de 1000 aumentando monto de reparacion, por lo tanto hay que hacer reparaciones" {
+ 	casaDePepeYJulian.romper(1000)
+ 	assert.that(casaDePepeYJulian.necesitaReparacion())
+}
+
+test "Se rompe algo de 1000, por lo tanto la casa no esta en orden" {
+	 casaDePepeYJulian.romper(1000)
+	 assert.that(casaDePepeYJulian.estaEnOrden())
+}
+test "Se Rompe algo de 1000, pero la casa tiene viveres suficientes" {
+	casaDePepeYJulian.romper(1000)
+	assert.that(casaDePepeYJulian.viveresSuficientes())
+}

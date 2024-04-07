@@ -1,0 +1,19 @@
+import example.*
+test "Para una cuenta vacia con 20 pesos de costo por operacion,si se deposita 1000, el saldo queda en 980" {
+	cuentaGastos.costoOperacion(20)
+	cuentaGastos.depositar(1000)
+	assert.equals(980, cuentaGastos.saldo())
+}
+
+test " La cuenta combinada queda asi, la primaria es la cuenta con gastos con 50 pesos de costo de operación y
+ la secundaria es la cuenta corriente, 
+ya con 500 pesos de saldo.
+Se depositan 100 pesos en la cuenta combinada 
+(van a la cuenta con gastos, porque es la primaria, depositándose 50 pesos efectivos)" {
+	cuentaCombinada.cuentaPrimaria(cuentaGastos)
+	cuentaCombinada.cuentaPrimaria().costoOperacion(50)
+	cuentaCombinada.cuentaSecundaria(cuentaCorriente)
+	cuentaCombinada.cuentaSecundaria().saldo(500)
+	cuentaCombinada.depositar(100)
+	assert.equals(50,cuentaCombinada.cuentaPrimaria().saldo())
+}
